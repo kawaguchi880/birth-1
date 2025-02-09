@@ -64,7 +64,7 @@ body::before {
     font-family: 'Press Start 2P', cursive;
 }
 
-#popupYesBtn:hover, #popupNoBtn:hover, #closePopupBtn:hover {
+#popupYesBtn:hover, #popupNoBtn:hover, #closePopupBtn:hover, .popup-button:hover {
     background: white;
     color: black;
 }
@@ -206,6 +206,9 @@ body::before {
     align-items: center;
 }
 
+.last-gift-container{
+    min-width: 350px;
+}
 .gift-hp {
     font-size: 18px;
     color: white;
@@ -294,14 +297,21 @@ body::before {
 .popup-image-container {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .popup-image {
-    width: 80%;
-    max-width: 300px;
-    border: 3px solid white;
-    border-radius: 10px;
+    width: 90%; /* 幅を90%に拡大 */
+    max-width: 400px; /* 最大幅を400pxに */
+    border: 4px solid white; /* 枠を少し太く */
+    border-radius: 12px; /* 角丸を増やす */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); /* 影をつけて強調 */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 画像をホバーすると少し大きく */
+.popup-image:hover {
+    transform: scale(1.2);
 }
 
 /* 🔹 選択肢をボタン風にする */
@@ -342,4 +352,400 @@ body::before {
 .quiz-option.selected {
     background: white;
     color: black;
+}
+
+.timing-bar {
+    width: 80%;
+    height: 20px;
+    background: gray;
+    position: relative;
+    margin: 10px auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* 🎯 攻撃ポインター */
+#timingPointer {
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    transition: left 0.1s linear;
+}
+
+/* ⚔ 攻撃ボタン */
+#attackBtn {
+    position: relative;
+    width: 200px;
+    height: 60px;
+    font-size: 24px;
+    font-weight: bold;
+    border: 4px solid #ffcc00;
+    background-color: #ff9900;
+    color: white !important; /* 強制的に白にする */
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* ⚔ クールダウン中のボタン */
+#attackBtn:disabled {
+    background-color: #444;
+    color: gray !important; /* クールダウン中はグレー */
+    cursor: not-allowed;
+}
+
+/* ⏳ クールダウンバー */
+.cooldown-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background-color: rgba(255, 165, 0, 0.6);
+    transition: width linear;
+}
+
+
+.power-gauge-bar {
+    width: 100%;
+    height: 20px;
+    background: gray;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#powerFill {
+    width: 0%;
+    height: 100%;
+    background: gold;
+    transition: width 0.3s ease;
+}
+
+.battle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    background: black;
+    padding: 20px;
+    position: relative;
+}
+
+/* 🎁 ボックスのHPバー (右上) */
+.box-hp-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    text-align: right;
+    width: 150px;
+}
+
+/* 🧍 プレイヤーのHPバー (左下) */
+.player-hp-container {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+    text-align: left;
+    width: 150px;
+}
+
+/* HPバーの共通デザイン */
+.hp-bar {
+    width: 150px;
+    height: 12px;
+    background-color: #444;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.hp-fill {
+    height: 100%;
+    background-color: red;
+    transition: width 1.5s ease-in-out;
+}
+
+.no-animation {
+    transition: none;
+    background-color: black;
+}
+
+/* 🎁 プレゼントボックス画像を上に配置 */
+#lastGiftImage {
+    width: 120px;
+    margin-top: 30px;
+}
+
+/* 🎯 攻撃タイミングバー */
+.timing-container {
+    width: 80%;
+    margin: 15px 0 60px 0;
+}
+
+.timing-bar {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background-color: #333;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* 通常攻撃ゾーン（グレー） */
+.damage-zone {
+    position: absolute;
+    left: 35%;
+    width: 30%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* クリティカルゾーン（オレンジ） */
+.critical-zone {
+    position: absolute;
+    left: 49%;
+    width: 3%;
+    height: 100%;
+    background-color: rgba(255, 165, 0, 0.7);
+}
+
+/* 🔥 ダメージエフェクト */
+.damage-effect {
+    position: absolute;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* 🔥 通常ダメージ（ふわっと上に移動） */
+@keyframes damageFade {
+    0% { transform: translateY(0px); opacity: 1; }
+    100% { transform: translateY(-40px); opacity: 0; }
+}
+.damageFade {
+    animation: damageFade 0.8s ease-out;
+}
+
+/* 💥 クリティカルヒット（ジャンプするように） */
+@keyframes criticalHit {
+    0% { transform: scale(1) translateY(0px); opacity: 1; }
+    30% { transform: scale(1.2) translateY(-10px); }
+    100% { transform: scale(1) translateY(-60px); opacity: 0; }
+}
+.criticalHit {
+    animation: criticalHit 0.8s ease-out;
+}
+
+/* ❌ ミス（横にスライドする） */
+@keyframes missEffect {
+    0% { transform: translateX(0px); opacity: 1; }
+    100% { transform: translateX(-50px); opacity: 0; }
+}
+.missEffect {
+    animation: missEffect 0.8s ease-out;
+}
+
+#guideMessage {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    transition: opacity 1s ease-out;
+}
+
+/* 💀 ボックスが攻撃時に揺れる */
+@keyframes shake {
+    0% { transform: translateX(0px); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0px); }
+}
+
+.shake {
+    animation: shake 0.3s ease-in-out;
+}
+
+/* 💥 ダメージ時に画面の端が赤く点滅（優しくする） */
+#screenEffect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* 🔴 ダメージ時に赤く点滅（透明度を低めに） */
+.damage-flash {
+    background: rgba(255, 0, 0, 0.2);
+    animation: softDamageFlash 0.8s ease-out;
+}
+
+/* ⚠ HPが10%以下で「鼓動のように」ゆっくり点滅 */
+.low-hp {
+    background: rgba(255, 0, 0, 0.15);
+    animation: lowHpPulse 2s infinite ease-in-out;
+}
+
+/* 🔴 やわらかい点滅 */
+@keyframes softDamageFlash {
+    0% { background: rgba(255, 0, 0, 0.3); }
+    100% { background: rgba(255, 0, 0, 0); }
+}
+
+/* ❤️ HP低下時のゆっくりした鼓動 */
+@keyframes lowHpPulse {
+    0% { background: rgba(255, 0, 0, 0.1); }
+    50% { background: rgba(255, 0, 0, 0.2); }
+    100% { background: rgba(255, 0, 0, 0.1); }
+}
+
+/* 📸 写真スライドショー */
+#photoWrapper {
+    position: fixed;
+    left: 3%;
+    top: 3%;
+    width: 60%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+}
+
+#photoGallery {
+    position: absolute;
+    left: 10%;
+    top: 15%;
+    width: 30%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🖼️ 額縁のデザイン */
+.photo-frame {
+    position: relative;
+    width: 62%;
+    height: 62%;
+    padding: 10px;
+    border: 10px solid #d4af37;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 2s ease-in-out, fadeOut 2s ease-in 6s forwards;
+}
+
+/* 🖼️ 画像のデザイン */
+.photo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: brightness(0.95); /* 背景と馴染ませる */
+    transition: transform 1s ease-in-out;
+}
+
+/* 📷 画像を少し傾ける（自然な感じ） */
+.photo-frame:nth-child(even) .photo-image {
+    transform: rotate(-3deg);
+}
+.photo-frame:nth-child(odd) .photo-image {
+    transform: rotate(3deg);
+}
+
+/* ⏳ フェードインアニメーション */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* 📜 エンドロール */
+#creditsWrapper {
+    position: fixed;
+    right: 25%;
+    bottom: -900vh;
+    width: 40%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    opacity: 1;
+}
+
+/* 上から下にスクロール */
+@keyframes scrollCredits {
+    from { bottom: -900vh; }
+    to { bottom: 100vh; }
+}
+
+/* 🎥 作業録画動画 */
+#endrollVideoWrapper {
+    position: fixed;
+    right: 1%;
+    bottom: 3%;
+    width: 22%;
+    height: auto;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+#videoContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#videoLabel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#endingVideo {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* 📸 フェードイン */
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* 🎥 フェードアウト */
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }
