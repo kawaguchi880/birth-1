@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("modalNoBtn").addEventListener("click", function () {
             alert("ならPCを買え！！！\nアマゾンでいいぞ！！！");
             setTimeout(() => {
-                window.location.href = "https://www.amazon.co.jp/s?k=PC"; // AmazonのPC販売ページに飛ばす
+                window.location.href = "https://www.amazon.co.jp/s?k=とても高いPC"; // AmazonのPC販売ページに飛ばす
             }, 1000);
         });
 
