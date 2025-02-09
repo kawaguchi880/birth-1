@@ -1,0 +1,345 @@
+/* ================================= */
+/* 🌟 背景設定 */
+/* ================================= */
+body {
+    background-image: url('./assets/birth_bak1.png'); /* 画像のパスを指定 */
+    background-size: cover; /* 画面いっぱいに表示 */
+    background-position: center; /* 中央配置 */
+    background-repeat: no-repeat; /* 繰り返しなし */
+    background-attachment: fixed; /* スクロールしても背景を固定 */
+    color: white; /* テキスト色を白に（見やすくするため） */
+    font-family: 'Press Start 2P', cursive; /* レトロゲーム風フォント */
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit; /* `body` の背景を引き継ぐ */
+    opacity: 0.3; /* 透明度を調整（0.0〜1.0） */
+    z-index: -1; /* 背景にする */
+}
+
+/* ================================= */
+/* 🎁 ポップアップデザイン */
+/* ================================= */
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: black;
+    color: white;
+    padding: 20px;
+    border: 4px solid white;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    z-index: 10001;
+    animation: pop-in 0.5s ease-out;
+    width: 40%;
+}
+
+@keyframes pop-in {
+    0% { transform: translate(-50%, -60%) scale(0.5); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.popup-buttons {
+    margin-top: 20px;
+}
+
+/* ポップアップ専用のボタン */
+#popupYesBtn, #popupNoBtn, #closePopupBtn, .popup-button {
+    font-size: 14px;
+    padding: 10px 20px;
+    margin: 5px 10px;
+    background: black;
+    color: white;
+    border: 2px solid white;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#popupYesBtn:hover, #popupNoBtn:hover, #closePopupBtn:hover {
+    background: white;
+    color: black;
+}
+
+/* 📍 左上に「伊藤様へ」配置 */
+.gift-popup-header {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14px;
+    color: #ffcc00; /* ゴールド風の文字色 */
+}
+
+/* 📍 右下に「川口より」配置 */
+.gift-popup-footer {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 14px;
+    color: #ffcc00;
+}
+
+/* 🎯 ホバー時に ▶ を自動で表示 */
+.popup-btn {
+    font-size: 16px;
+    padding: 10px 25px;
+    background: black;
+    color: white;
+    border: 2px solid white;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    transition: 0.2s ease-in-out;
+    position: relative;
+}
+
+/* ▶ をボタンの前に表示 */
+.popup-btn:hover::before {
+    content: "▶";
+    position: absolute;
+    left: -20px; /* 文字の左に表示 */
+    color: #ffcc00; /* ゴールドのような色 */
+}
+
+
+/* ================================= */
+/* ⚠ モーダルデザイン（スマホ制限） */
+/* ================================= */
+#errorModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px;
+    z-index: 9999;
+    animation: blinkBg 1s infinite alternate;
+}
+
+/* 背景点滅アニメーション */
+@keyframes blinkBg {
+    0% { background: rgba(0, 0, 0, 0.9); }
+    100% { background: rgba(255, 0, 0, 0.8); }
+}
+
+.modal-content {
+    background: red;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px white;
+}
+
+/* モーダル専用のボタン */
+#modalYesBtn, #modalNoBtn {
+    font-size: 18px;
+    margin: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+#modalYesBtn {
+    background-color: green;
+    color: white;
+}
+
+#modalNoBtn {
+    background-color: darkred;
+    color: white;
+}
+
+#modalYesBtn:hover, #modalNoBtn:hover {
+    transform: scale(1.1);
+}
+
+/* 🎥 フルスクリーン動画 */
+#videoWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000; /* 最前面 */
+}
+
+#playbackVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 🎁 プレゼント開封エリア */
+#giftWrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: black;
+    padding: 20px;
+    border: 2px solid white;
+    z-index: 10000;
+}
+
+.gift-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gift-hp {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* 🎥 クリック時のアニメーション */
+#giftImage {
+    width: 300px;
+    height: 300px;
+    cursor: pointer;
+    transition: transform 0.1s, filter 0.3s ease-out;
+}
+
+/* 💥 壊れるアニメーション */
+.shake {
+    animation: shake 0.15s linear 1;
+}
+
+@keyframes shake {
+    0% { transform: translate(2px, 2px) rotate(1deg); }
+    25% { transform: translate(-2px, -2px) rotate(-1deg); }
+    50% { transform: translate(2px, -2px) rotate(1deg); }
+    75% { transform: translate(-2px, 2px) rotate(-1deg); }
+    100% { transform: translate(0, 0) rotate(0); }
+}
+
+/* 🎊 文字を1つずつ順番に跳ねさせる */
+.jump {
+    display: inline-block;
+    animation: jumpAnimation 0.6s ease-in-out;
+    animation-fill-mode: both;
+}
+
+/* 文字が1つずつ跳ねるアニメーション */
+@keyframes jumpAnimation {
+    0% { transform: translateY(0); opacity: 1; }
+    30% { transform: translateY(-15px); }
+    60% { transform: translateY(0); }
+    100% { transform: translateY(0); }
+}
+
+/* クイズポップアップのスタイル調整 */
+.quiz-input {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* ラジオボタンの選択肢を横並びにする */
+.quiz-input label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.quiz-input input {
+    max-width: 500px; /* 🔥 最大幅を500pxに設定 */
+    padding: 12px; /* 🔥 クリック・タップしやすく */
+    font-size: 22px; /* 🔥 読みやすくする */
+    border: 2px solid white;
+    background: black;
+    color: white;
+    text-align: center;
+    border-radius: 8px; /* 🔥 角を少し丸く */
+}
+
+.quiz-input input[type="radio"] {
+    transform: scale(1.2); /* ラジオボタンを少し大きくする */
+}
+
+
+.quiz-image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.quiz-image {
+    width: 80%;
+    max-width: 300px;
+    border: 3px solid white;
+    border-radius: 10px;
+}
+
+.popup-image-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.popup-image {
+    width: 80%;
+    max-width: 300px;
+    border: 3px solid white;
+    border-radius: 10px;
+}
+
+/* 🔹 選択肢をボタン風にする */
+.quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2列 */
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* 🔹 選択肢ボタンデザイン */
+.quiz-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    color: white;
+    font-size: 20px;
+    padding: 15px;
+    border: 2px solid white;
+    border-radius: 10px; /* 角を丸く */
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+/* 🔹 ホバー時のエフェクト */
+.quiz-option:hover {
+    background: white;
+    color: black;
+}
+
+/* 🔹 選択されたボタン */
+.quiz-option input[type="radio"] {
+    display: none; /* ラジオボタンを隠す */
+}
+
+.quiz-option.selected {
+    background: white;
+    color: black;
+}
