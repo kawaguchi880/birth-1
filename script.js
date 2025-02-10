@@ -726,6 +726,17 @@ function triggerScreenDamageEffect(playerHP) {
 }
 
 function startEndingSequence() {
+    let damageOverlay = document.getElementById("damageOverlay");
+    if (damageOverlay) {
+        damageOverlay.style.transition = "opacity 1s ease-out";
+        damageOverlay.style.opacity = "0";
+        setTimeout(() => {
+            damageOverlay.remove();
+        }, 1000);
+    }
+
+    // 画面の赤い点滅効果もリセット
+    document.body.classList.remove("low-health-effect");
     if (document.getElementById("popup")) {
         document.getElementById("popup").remove();
     }
